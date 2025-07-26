@@ -8,12 +8,18 @@ OUT_NAME = game
 all: build run
 
 run:
-	$(OUT)/$(OUT_NAME).exe
+	cd $(OUT) && ./$(OUT_NAME)
 
-build: main.o glad.o imgui.o imgui_demo.o imgui_draw.o imgui_impl_glfw.o imgui_impl_opengl3.o imgui_tables.o imgui_widgets.o block.o chunk.o input.o instance.o logger.o physics.o player.o renderer.o rendering.o resources.o utils.o world.o generate
+build: generate main.o glad.o imgui.o imgui_demo.o imgui_draw.o imgui_impl_glfw.o imgui_impl_opengl3.o imgui_tables.o imgui_widgets.o block.o chunk.o input.o instance.o logger.o physics.o player.o renderer.o rendering.o resources.o utils.o world.o compile clean
 
 generate:
+	mkdir -p $(OUT)/obj
+
+compile:
 	$(CC) $(OUT)/obj/main.o $(OUT)/obj/glad.o $(OUT)/obj/imgui.o $(OUT)/obj/imgui_demo.o $(OUT)/obj/imgui_draw.o $(OUT)/obj/imgui_impl_glfw.o $(OUT)/obj/imgui_impl_opengl3.o $(OUT)/obj/imgui_tables.o $(OUT)/obj/imgui_widgets.o $(OUT)/obj/block.o $(OUT)/obj/chunk.o $(OUT)/obj/input.o $(OUT)/obj/instance.o $(OUT)/obj/logger.o $(OUT)/obj/physics.o $(OUT)/obj/player.o $(OUT)/obj/renderer.o $(OUT)/obj/rendering.o $(OUT)/obj/resources.o $(OUT)/obj/utils.o $(OUT)/obj/world.o -Llib -lglfw3 -o $(OUT)/$(OUT_NAME)
+
+clean:
+	cd $(OUT) && rm -r obj
 
 main.o:
 	$(CC) -c $(SRC)/main.cpp -I$(INC) -o $(OUT)/obj/main.o
