@@ -1,9 +1,7 @@
 #include <logger.hpp>
 
-void log(LogType type, std::string message)
-{
-	switch (type)
-	{
+void log(LogType type, std::string message) {
+	switch (type) {
 		case INFO:
 			std::cout << "[INFO]: " << message << std::endl;
 			break;
@@ -16,17 +14,14 @@ void log(LogType type, std::string message)
 	}
 }
 
-void info(std::string message)
-{
+void info(std::string message) {
 	log(INFO, message);
 }
 
-void warn(std::string message)
-{
+void warn(std::string message) {
 	log(WARN, message);
 }
 
-void error(std::string message)
-{
+void error(std::string message) {
 	log(ERROR, message);
 }

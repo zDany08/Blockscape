@@ -1,5 +1,4 @@
 #include <input.hpp>
-#include <player.hpp>
 #include <chunk.hpp>
 #include <renderer.hpp>
 
@@ -31,6 +30,17 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	}
 }
 
+void onMouseButton(GLFWwindow* window, int button, int action, int mods) {
+	switch(action) {
+		case GLFW_PRESS:
+			onMouseButtonPress(window, camera, button);
+			break;
+		case GLFW_RELEASE:
+			onMouseButtonRelease(window, camera, button);
+			break;
+	}
+}
+
 void onCursorPos(GLFWwindow* window, double mouseX, double mouseY) {
 	onCursorMove(window, camera, (int) mouseX, (int) mouseY);
 }
@@ -39,6 +49,7 @@ void initCallbacks() {
 	glfwSetFramebufferSizeCallback(window, onResize);
 	glfwSetWindowFocusCallback(window, onFocus);
 	glfwSetKeyCallback(window, onKey);
+	glfwSetMouseButtonCallback(window, onMouseButton);
 	glfwSetCursorPosCallback(window, onCursorPos);
 }
 
@@ -55,7 +66,6 @@ void init() {
 	camera = new Camera();
 	world = new World();
 	debug = new Debug(window);
-	glClearColor(0.0f, 0.6f, 0.8f, 1.0f);
 }
 
 void start() {
@@ -81,6 +91,7 @@ void start() {
 void loop() {
 	calculateTime();
 	calculateFps();
+	calculateDayTime();
 	onInput(window, camera);
 	render(window, world, camera, debug);
 	glfwSwapBuffers(window);

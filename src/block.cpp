@@ -70,9 +70,9 @@ BlockSelection::BlockSelection(glm::vec4 color_, glm::ivec3 position_, Block* bl
 
 void BlockSelection::render(GLFWwindow* window, ShaderProgram* program, Camera* camera) {
 	program->bind();
-	program->uniform(color, "uColor");
-	program->uniform(camera->projection(window), "uProjection");
-	program->uniform(camera->view(), "uView");
+	program->uniform4f(color, "uColor");
+	program->uniform4fv(camera->projection(window), "uProjection");
+	program->uniform4fv(camera->view(), "uView");
 	vao.bind();
 	vbo.bind();
 	vbo.drawArrays(GL_LINES, 0, 24);

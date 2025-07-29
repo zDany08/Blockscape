@@ -1,7 +1,7 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <iostream>
+#include <logger.hpp>
 #include <string>
 #include <random>
 #include <fstream>
@@ -58,16 +58,16 @@ int width(GLFWwindow*);
 int height(GLFWwindow*);
 
 class Debug {
-public:
-	Debug(GLFWwindow*);
+	public:
+		Debug(GLFWwindow*);
 		
-	void begin();
+		void begin();
 		
-	void render(std::string, std::function<void()>);
+		void render(std::string, std::function<void()>);
 		
-	void end();
+		void end();
 		
-	~Debug();
+		~Debug();
 };
 
 extern float fpsLastTime;
@@ -76,5 +76,14 @@ extern int frames;
 extern int fps;
 
 void calculateFps();
+
+extern int dayLength;
+extern float dayLastTime;
+extern float dayCurrentTime;
+extern int dayTime;
+
+float getDayColor(float, float);
+
+void calculateDayTime();
 
 #endif

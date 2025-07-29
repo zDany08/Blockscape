@@ -5,9 +5,11 @@
 
 #include <iostream>
 
-enum LogType
-{
-	INFO, WARN, ERROR
+enum LogType {
+
+	INFO,
+	WARN,
+	ERROR
 };
 
 void log(LogType, std::string);

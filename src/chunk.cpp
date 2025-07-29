@@ -108,10 +108,9 @@ void ChunkRenderer::batch(glm::ivec3 chunkPosition, BlockStorage& blocks) {
 		if(!hasBlockAt(position, blocks)) continue;
 		Block* block = getBlockAt(position, blocks);
 		for(BlockMesh& mesh : block->model->meshes) {
-			if(!isBoundaryMesh(blocks, glm::ivec3(x, y, z), block, mesh)) {
-				verticesSize++;
-				indicesSize++;
-			}
+			if(isBoundaryMesh(blocks, glm::ivec3(x, y, z), block, mesh)) continue;
+			verticesSize++;
+			indicesSize++;
 		}
 	}
 	verticesSize *= 20 * sizeof(GLfloat);
@@ -122,7 +121,10 @@ void ChunkRenderer::batch(glm::ivec3 chunkPosition, BlockStorage& blocks) {
 		glm::ivec3 position = glm::ivec3(x, y, z);
 		if(!hasBlockAt(position, blocks)) continue;
 		Block* block = getBlockAt(position, blocks);
-		for(BlockMesh& mesh : block->model->meshes) if (!isBoundaryMesh(blocks, glm::ivec3(x, y, z), block, mesh)) batchMesh(chunkPosition, verticesIndex, indicesIndex, index, mesh, glm::ivec3(x, y, z));
+		for(BlockMesh& mesh : block->model->meshes) {
+			if(isBoundaryMesh(blocks, glm::ivec3(x, y, z), block, mesh)) continue;
+			batchMesh(chunkPosition, verticesIndex, indicesIndex, index, mesh, glm::ivec3(x, y, z));
+		}
 	}
 	vbo.bind();
 	vbo.data(verticesSize, vertices, GL_STATIC_DRAW);
@@ -136,9 +138,10 @@ void ChunkRenderer::batch(glm::ivec3 chunkPosition, BlockStorage& blocks) {
 void ChunkRenderer::render(GLFWwindow* window, Camera* camera) {
 	if(size == 0) return;
 	chunkProgram->bind();
-	chunkProgram->uniform(camera->projection(window), "uProjection");
-	chunkProgram->uniform(camera->view(), "uView");
-	chunkProgram->uniform(0, "uTex");
+	chunkProgram->uniform4fv(camera->projection(window), "uProjection");
+	chunkProgram->uniform4fv(camera->view(), "uView");
+	chunkProgram->uniform1i(0, "uTex");
+	chunkProgram->uniform1f(getDayColor(0.2, 1.0f), "uAmbientLight");
 	blocksTexture->bind();
 	vao.bind();
 	ebo.bind();

@@ -42,6 +42,14 @@ void Camera::rotate(int xOffset, int yOffset) {
 	front = glm::normalize(front);
 }
 
+void Camera::placeBlock() {
+	info("Place Break");
+}
+
+void Camera::breakBlock() {
+	info("Break Block");
+}
+
 glm::mat4 Camera::projection(GLFWwindow* window) {
 	float aspectRatio = (float) width(window) / height(window);
 	return glm::perspective(glm::radians((float) fov), aspectRatio, 0.1f, 1000.0f);

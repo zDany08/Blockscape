@@ -46,17 +46,22 @@ void ShaderProgram::bind() {
 	glUseProgram(id);
 }
 
-void ShaderProgram::uniform(GLint value, std::string name) {
+void ShaderProgram::uniform1i(GLint value, std::string name) {
 	GLint location = glGetUniformLocation(id, name.c_str());
 	glUniform1i(location, value);
 }
 
-void ShaderProgram::uniform(glm::vec4 value, std::string name) {
+void ShaderProgram::uniform1f(GLfloat value, std::string name) {
+	GLint location = glGetUniformLocation(id, name.c_str());
+	glUniform1f(location, value);
+}
+
+void ShaderProgram::uniform4f(glm::vec4 value, std::string name) {
 	GLint location = glGetUniformLocation(id, name.c_str());
 	glUniform4f(location, value.x, value.y, value.z, value.w);
 }
 
-void ShaderProgram::uniform(glm::mat4 value, std::string name) {
+void ShaderProgram::uniform4fv(glm::mat4 value, std::string name) {
 	GLint location = glGetUniformLocation(id, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }

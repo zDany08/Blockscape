@@ -9,21 +9,21 @@ constexpr unsigned short maxWorldSize = 128;
 using ChunkStorage = std::array<std::array<std::array<Chunk*, maxWorldSize>, maxWorldSize>, maxWorldSize>;
 
 class World {
-public:
-	ChunkStorage chunks;
-	std::mutex mtx;
+	public:
+		ChunkStorage chunks;
+		std::mutex mtx;
 
-	World();
+		World();
 
-	void generateChunkAt(glm::ivec3);
+		void generateChunkAt(glm::ivec3);
 
-	void render(GLFWwindow*, Camera*);
+		void render(GLFWwindow*, Camera*);
 
-	Chunk* getChunkAt(glm::ivec3);
+		Chunk* getChunkAt(glm::ivec3);
 
-	bool hasChunkAt(glm::ivec3);
+		bool hasChunkAt(glm::ivec3);
 
-	~World();
+		~World();
 };
 
 #endif

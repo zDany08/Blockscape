@@ -1,8 +1,6 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <utils.hpp>
-
 enum Direction {
 
 	FORWARD,
@@ -14,23 +12,25 @@ enum Direction {
 };
 
 class Camera {
-private:
-	glm::vec3 position;
-public:
-	float yaw, pitch;
-	glm::vec3 front, up;
+	public:
+		float yaw, pitch;
+		glm::vec3 position, front, up;
 
-	Camera();
+		Camera();
 
-	void move(float, Direction);
+		void move(float, Direction);
 
-	void rotate(int, int);
+		void rotate(int, int);
 
-	glm::mat4 projection(GLFWwindow*);
+		void placeBlock();
 
-	glm::mat4 view();
+		void breakBlock();
 
-	glm::ivec3 worldBlockPosition();
+		glm::mat4 projection(GLFWwindow*);
+
+		glm::mat4 view();
+
+		glm::ivec3 worldBlockPosition();
 };
 
 #endif

@@ -6,14 +6,14 @@
 extern std::string resourcesPath;
 
 class Resource {
-public:
-	std::string path;
+	public:
+		std::string path;
 
-	Resource(std::string);
+		Resource(std::string);
 
-	std::string toText();
+		std::string toText();
 
-	unsigned char* toImage(int*, int*);
+		unsigned char* toImage(int*, int*);
 };
 
 nlohmann::json toJson(std::string);

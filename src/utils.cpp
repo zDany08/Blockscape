@@ -52,11 +52,8 @@ void toggleFullscreen(GLFWwindow* window) {
 bool debugMode = true;
 
 int fov = 70;
-
 int speed = 5;
-
 float sensitivity = 0.08f;
-
 int renderDistance = 4;
 
 float lastTime = 0.0f;
@@ -129,8 +126,29 @@ void calculateFps() {
 	fpsCurrentTime = currentTime;
 	float fpsDeltaTime = fpsCurrentTime - fpsLastTime;
 	frames++;
-	if (fpsDeltaTime < 1.0f) return;
+	if(fpsDeltaTime < 1.0f) return;
 	fps = frames;
 	frames = 0;
 	fpsLastTime = fpsCurrentTime;
+}
+
+int dayLength = 1200;
+float dayLastTime = 0.0f;
+float dayCurrentTime = 0.0f;
+int dayTime = dayLength / 2;
+
+float getDayColor(float min, float max) {
+	return std::clamp(0.2f, dayTime <= dayLength / 2.0f ? dayTime / 100.0f : ((dayLength / 2.0f) - (dayTime - (dayLength / 2.0f))) / 100.0f, 1.0f);
+}
+
+void calculateDayTime() {
+	dayCurrentTime = currentTime;
+	float dayDeltaTime = dayCurrentTime - dayLastTime;
+	if(dayDeltaTime < 1.0f) return;
+	if(dayTime >= dayLength) {
+		dayTime = 0;
+	}else {
+		dayTime++;
+	}
+	dayLastTime = dayCurrentTime;
 }

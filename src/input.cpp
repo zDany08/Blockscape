@@ -14,6 +14,19 @@ void onKeyPress(GLFWwindow* window, int key) {
 
 void onKeyRelease(GLFWwindow* window, int key) {}
 
+void onMouseButtonPress(GLFWwindow* window, Camera* camera, int button) {
+	switch(button) {
+		case GLFW_MOUSE_BUTTON_1:
+			camera->breakBlock();
+			break;
+		case GLFW_MOUSE_BUTTON_2:
+			camera->placeBlock();
+			break;
+	}
+}
+
+void onMouseButtonRelease(GLFWwindow*, Camera* camera, int button) {}
+
 void onCursorMove(GLFWwindow* window, Camera* camera, int mouseX, int mouseY) {
 	if(cursorEnabled) return;
 	int x = width(window) / 2, y = height(window) / 2;
