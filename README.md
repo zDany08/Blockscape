@@ -1,8 +1,6 @@
 # Blockscape
 
-A Minecraft clone built with C++ and OpenGL.
-
-![Preview](https://imgur.com/IFrAh3C.png)
+A Minecraft clone built with C++, GLFW and OpenGL.
 
 Makefile commands:
 - ```make build``` -> Build without running
